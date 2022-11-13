@@ -20,7 +20,7 @@
                 <el-icon :size="20" class="svg-container">
                     <Lock />
                 </el-icon>
-                <el-input v-model="form.password" type='password' />
+                <el-input v-model="form.password" type='password' show-password=true />
             </el-form-item>
             <el-button type="primary" class="login-button" @click="submitForm()">登录</el-button>
         </el-form>
