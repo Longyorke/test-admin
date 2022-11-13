@@ -30,8 +30,9 @@
 <script setup>
 import { ref } from 'vue' // 从vue导入ref
 import { User, Lock } from '@element-plus/icons-vue' // 从element-plus引入编写图标
-import { login } from '@/api/login'
+import { useStore } from 'vuex'
 
+const store = useStore() // 拿到vuex的全局store
 // import { reactive } from "vue";
 // const user = reactive({ user_username: 'LongYorke', password: '123456', })
 const form = ref({ // vue3.0 ref只能创建基础类型vue3.2中使用ref创建对象底层实际上也会reactive进行实现
@@ -57,9 +58,7 @@ const ruleFormRef = ref(null) // 声明一个变量用于缓存 ref 属性涉及
 const submitForm = async () => {
     await ruleFormRef.value.validate(async (valid, fields) => {
         if (valid) {
-            // console.log('submit!')
-            const res = await login(form.value)
-            console.log('【拦截器处理后】', res)
+            store.dispatch('app/login', form.value) // 派发给app/login()函数 userInfo 为 form.value
         } else {
             console.log('error submit!', fields)
             alert('error submit!')

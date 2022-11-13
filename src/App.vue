@@ -5,7 +5,7 @@
   </nav> -->
   <router-view />
   <h1>hello</h1>
-  <h1>测试路由</h1>
+  <h1>首页</h1>
 </template>
 
 <style lang="scss">

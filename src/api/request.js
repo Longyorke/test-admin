@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.response.use(
     (response) => {
         // 有响应的处理
-        console.log('【拦截器处理前】', response)
+        // console.log('【拦截器处理前】', response)
         const { data, meta } = response.data // es6解构response.data对象拿到response.data.data与response.data.meta
         if (meta.status === 200 || meta.status === 201) { // 成功
             return data // response.data.data
@@ -22,6 +22,7 @@ service.interceptors.response.use(
     },
     (error) => {
         // 无响应的处理
+        // console.log('【无响应的处理】', error)
         error.response && ElMessage.error(error.response.data)
         return Promise.reject(new Error(error.response.data))
     }
