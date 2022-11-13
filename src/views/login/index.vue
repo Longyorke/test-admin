@@ -35,8 +35,8 @@ import { login } from '@/api/login'
 // import { reactive } from "vue";
 // const user = reactive({ user_username: 'LongYorke', password: '123456', })
 const form = ref({ // vue3.0 ref只能创建基础类型vue3.2中使用ref创建对象底层实际上也会reactive进行实现
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
 })
 
 // 表单验证
@@ -58,7 +58,8 @@ const submitForm = async () => {
     await ruleFormRef.value.validate(async (valid, fields) => {
         if (valid) {
             // console.log('submit!')
-            await login(form.value)
+            const res = await login(form.value)
+            console.log('【拦截器处理后】', res)
         } else {
             console.log('error submit!', fields)
             alert('error submit!')
