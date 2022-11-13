@@ -16,6 +16,6 @@ module.exports = {
     //关闭组件命名规则
     "vue/multi-word-component-names": "off",
     //缩进
-    'indent': 2
+    'indent': 4
   }
 }
