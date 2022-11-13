@@ -20,7 +20,7 @@
                 <el-icon :size="20" class="svg-container">
                     <Lock />
                 </el-icon>
-                <el-input v-model="form.password" />
+                <el-input v-model="form.password" type='password' />
             </el-form-item>
             <el-button type="primary" class="login-button" @click="submitForm()">登录</el-button>
         </el-form>
@@ -61,10 +61,10 @@ const submitForm = async () => {
             await login(form.value)
         } else {
             console.log('error submit!', fields)
+            alert('error submit!')
         }
     })
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -92,23 +92,19 @@ $cursor: #fff;
             background: rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             color: #454545;
-        }
+            height: 50px;
 
-        :deep(.el-input) {
-            display: inline-block;
-            height: 47px;
-            width: 85%;
+            .el-input {
+                flex: 1;
 
-            .el-input__wrapper {
-                background: transparent;
-                box-shadow: 0 0 0 0;
-                border: 0px;
-                -webkit-appearance: none;
-                border-radius: 0px;
-                padding: 12px 5px 12px 15px;
-                color: $light_gray;
-                height: 47px;
-                caret-color: $cursor;
+                .el-input__wrapper {
+                    background-color: transparent;
+                    box-shadow: none;
+
+                    .el-input__inner {
+                        color: #fff;
+                    }
+                }
             }
         }
 
@@ -149,7 +145,7 @@ $cursor: #fff;
             font-weight: bold;
         }
 
-        ::v-deep .lang-select {
+        :deep(.lang-select) {
             position: absolute;
             top: 4px;
             right: 0;
