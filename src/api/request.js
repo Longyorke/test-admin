@@ -7,7 +7,18 @@ const service = axios.create({
     timeout: 5000
 })
 
-// 拦截器
+// 请求拦截器
+service.interceptors.request.use(
+    (config) => {
+        config.headers.Authorization = localStorage.getItem('token') // 请求报头添加token
+        return config
+    },
+    (error) => {
+        return Promise.reject(new Error(error))
+    }
+)
+
+// 响应拦截器
 service.interceptors.response.use(
     (response) => {
         // 有响应的处理

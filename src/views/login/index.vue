@@ -58,8 +58,10 @@ const ruleFormRef = ref(null) // 声明一个变量用于缓存 ref 属性涉及
 const submitForm = async () => {
     await ruleFormRef.value.validate(async (valid, fields) => {
         if (valid) {
+            // 表单校验成功
             store.dispatch('app/login', form.value) // 派发给app/login()函数 userInfo 为 form.value
         } else {
+            // 表单校验失败
             console.log('error submit!', fields)
             alert('error submit!')
         }
