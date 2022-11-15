@@ -1,16 +1,22 @@
 <template>
     <div class="common-layout">
+        <!-- 容器 -->
         <el-container class="app-wrapper">
-            <el-aside width="200px" class="sidebar-container">Aside</el-aside>
+            <el-aside width="200px" class="sidebar-container">
+                <Menu></Menu>
+            </el-aside> <!-- 侧栏 -->
+            <!-- 容器 -->
             <el-container class="container">
-                <el-header>Header</el-header>
-                <el-main>Main</el-main>
+
+                <el-header>Header</el-header> <!-- 头部 -->
+                <el-main>Main</el-main> <!-- 主要内容 -->
             </el-container>
         </el-container>
     </div>
 </template>
 
 <script setup>
+import Menu from './Menu'
 
 </script>
 
