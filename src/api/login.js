@@ -1,5 +1,6 @@
 import request from './request.js'
 
+// 登录请求
 export const login = (data) => {
     return request({
         url: '/login', // 地址

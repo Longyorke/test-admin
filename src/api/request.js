@@ -25,7 +25,7 @@ service.interceptors.response.use(
         // console.log('【拦截器处理前】', response)
         const { data, meta } = response.data // es6解构response.data对象拿到response.data.data与response.data.meta
         if (meta.status === 200 || meta.status === 201) { // 成功
-            return data // response.data.data
+            return data // 返回response.data.data
         } else { // 请求失败
             ElMessage.error(meta.msg) // 使用element-plus的消息提示框提示错误信息
             return Promise.reject(new Error(meta.msg))
