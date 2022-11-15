@@ -18,7 +18,7 @@ module.exports = defineConfig({
     }));
   },
 
-  //代理解决跨域
+  // 代理解决跨域
   devServer: {
     https: false,
     // hotOnly: false, //如果运行报错 注释这一行
@@ -31,5 +31,19 @@ module.exports = defineConfig({
         }
       }
     }
+  },
+
+  // 导入全局css变量
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: // 8版本用prependData: 12版本用additionalData
+          `
+          @import "@/styles/variables.scss";  // scss文件地址
+          @import "@/styles/mixin.scss";     // scss文件地址
+        `
+      }
+    }
   }
+
 })
