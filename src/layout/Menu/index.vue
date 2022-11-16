@@ -3,7 +3,7 @@
     <el-menu active-text-color="#ffd04b" background-color="variables.menuBg" class="el-menu-vertical-demo"
         :default-active="defaultActive" text-color="#fff" router unique-opened>
         <!-- 一级菜单标签 -->
-        <el-sub-menu :index="item.id" v-for="item in  menuList" :key="item.id">
+        <el-sub-menu :index="item.id + ''" v-for="item in  menuList" :key="item.id">
             <template #title>
                 <!-- 等价于<template v-slot:title> -->
                 <el-icon>
@@ -33,6 +33,7 @@ import { toMenuList } from '@/api/menu'
 
 // 默认激活的index（此处index设置为对应路由）
 const defaultActive = ref(sessionStorage.getItem('path') || '/users')
+console.log('【当前path中的值为】' + defaultActive.value)
 
 // 实现点击菜单项目后保存对应路由到sessionStorage中
 const savePath = (path) => { sessionStorage.setItem('path', `/${path}`) }
