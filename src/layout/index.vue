@@ -7,9 +7,10 @@
             </el-aside> <!-- 侧栏 -->
             <!-- 容器 -->
             <el-container class="container">
-
                 <el-header>Header</el-header> <!-- 头部 -->
-                <el-main>Main</el-main> <!-- 主要内容 -->
+                <el-main>
+                    <router-view></router-view>
+                </el-main> <!-- 主要内容 -->
             </el-container>
         </el-container>
     </div>

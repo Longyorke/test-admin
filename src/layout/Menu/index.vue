@@ -1,7 +1,7 @@
 <template>
     <!-- 菜单组件 -->
     <el-menu active-text-color="#ffd04b" background-color="variables.menuBg" class="el-menu-vertical-demo"
-        default-active="2" text-color="#fff" router unique-opened>
+        :default-active="defaultActive" text-color="#fff" router unique-opened>
         <!-- 一级菜单标签 -->
         <el-sub-menu :index="item.id" v-for="item in  menuList" :key="item.id">
             <template #title>
@@ -11,8 +11,8 @@
                 </el-icon>
                 <span>{{ item.authName }}</span>
             </template>
-            <!-- 菜单项目组：与二级菜单同级，呈现灰色无法选中的文字 -->
-            <el-menu-item :index="'/' + itemChild.path" v-for="itemChild in item.children" :key="itemChild.id">
+            <el-menu-item :index="'/' + itemChild.path" v-for="itemChild in item.children" :key="itemChild.id"
+                @click="savePath(itemChid.path)">
                 {{ itemChild.authName }}
             </el-menu-item>
         </el-sub-menu>
@@ -31,9 +31,14 @@ import {
 import { ref } from 'vue'
 import { toMenuList } from '@/api/menu'
 
+// 默认激活的index（此处index设置为对应路由）
+const defaultActive = ref(sessionStorage.getItem('path') || '/users')
+
+// 实现点击菜单项目后保存对应路由到sessionStorage中
+const savePath = (path) => { sessionStorage.setItem('path', `/${path}`) }
+
 // 缓存菜单列表
 const menuList = ref([])
-
 // 定义初始化菜单函数，异步调用菜单列表请求
 const initMenuList = async () => {
     menuList.value = await toMenuList() // 注意使用.value来操作ref中的数据
