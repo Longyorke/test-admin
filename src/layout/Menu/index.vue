@@ -12,7 +12,7 @@
                 <span>{{ item.authName }}</span>
             </template>
             <el-menu-item :index="'/' + itemChild.path" v-for="itemChild in item.children" :key="itemChild.id"
-                @click="savePath(itemChid.path)">
+                @click="savePath(itemChild.path)">
                 {{ itemChild.authName }}
             </el-menu-item>
         </el-sub-menu>
@@ -29,20 +29,21 @@ import {
     // Setting
 } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { toMenuList } from '@/api/menu'
+import { getMenuList } from '@/api/menu'
 
 // 默认激活的index（此处index设置为对应路由）
 const defaultActive = ref(sessionStorage.getItem('path') || '/users')
-console.log('【当前path中的值为】' + defaultActive.value)
 
 // 实现点击菜单项目后保存对应路由到sessionStorage中
-const savePath = (path) => { sessionStorage.setItem('path', `/${path}`) }
+const savePath = (path) => {
+    sessionStorage.setItem('path', `/${path}`)
+}
 
 // 缓存菜单列表
 const menuList = ref([])
 // 定义初始化菜单函数，异步调用菜单列表请求
 const initMenuList = async () => {
-    menuList.value = await toMenuList() // 注意使用.value来操作ref中的数据
+    menuList.value = await getMenuList() // 注意使用.value来操作ref中的数据
     console.log(menuList.value)
 }
 
