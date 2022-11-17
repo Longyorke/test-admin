@@ -22,7 +22,6 @@
                 </template>
             </el-menu-item>
         </el-sub-menu>
-
     </el-menu>
 </template>
 
@@ -35,6 +34,7 @@ const iconListFisrtOrder = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart
 const iconListSecondOrder = ref('menu') // 二级图标
 
 // 默认激活的index（此处index设置为对应路由）
+// 如果session存储了则取对应path键值对，否则默认用/users
 const defaultActive = ref(sessionStorage.getItem('path') || '/users')
 // 实现点击菜单项目后保存对应路由到sessionStorage中
 const savePath = (path) => {

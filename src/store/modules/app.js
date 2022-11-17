@@ -1,5 +1,6 @@
 import { login as loginApi } from '@/api/login' // 起个别名防止冲突
 import router from '@/router'
+import { setTokenTime } from '@/utils/auth'
 
 export default {
     namespaced: true, // 使用命名空间，app/token 防止重名报错
@@ -27,7 +28,8 @@ export default {
                     .then((res) => {
                         // 登录成功
                         console.log(res)
-                        commit('setToken', res.token)
+                        commit('setToken', res.token) // 存储登录token
+                        setTokenTime() // 存储登录时间
                         router.replace('/') // 登录成功后应返回到首页
                         resolve() // 执行回调函数resolve()
                     })
@@ -36,6 +38,13 @@ export default {
                         reject(err) // 执行回调函数reject()，并传入err参数
                     })
             })
+        },
+        // 退出当前登录
+        logout({ commit }) {
+            commit('setToken', '') // 清空localStorage与vuex的state中的token键对应的值
+            localStorage.clear() // 清除localStorage，目的是清除localStorage中的TOKEN_TIME
+            // 跳转到登录页面
+            router.replace('/login') // 作用类似于 router.push，不同的在导航时不会向 history 添加新记录
         }
     }
 }
