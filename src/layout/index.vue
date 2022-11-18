@@ -3,12 +3,12 @@
         <!-- 容器 -->
         <el-container class="app-wrapper">
             <!-- 侧栏 -->
-            <el-aside width="sideBarWidth" class="sidebar-container">
+            <el-aside :width="sideBarWidth" class="sidebar-container">
                 <!-- 菜单 -->
                 <Menu></Menu>
             </el-aside>
             <!-- 容器 -->
-            <el-container class="container">
+            <el-container class="container" :class="{ hidderContainer: !$store.getters.siderType }">
                 <!-- 头部 -->
                 <el-header>
                     <Headers></Headers>
@@ -24,10 +24,14 @@
 <script setup>
 import Menu from './menu'
 import Headers from './headers'
+import variables from '@/styles/variables.module.scss'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 
-// import { ref } from 'vue'
-// scss中的变量已经在vue.config.js中导入
-// import variables from '@/styles/variables.scss'
+const store = useStore()
+const sideBarWidth = computed(() => {
+    return store.getters.siderType ? variables.sideBarWidth : variables.hideSideBarWidth
+})
 // const sideBarWidth = ref(variables.sideBarWidth)
 
 </script>

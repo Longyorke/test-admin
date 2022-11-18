@@ -1,8 +1,7 @@
 <template>
     <div class="navbar">
-        <h1>头部</h1>
-        <!-- <Hamburger />
-        <Breadcrumb />
+        <Hamburger />
+        <!-- <Breadcrumb />
         <div class="navbar-right">
             <Driver class="navbar-item" />
             <screen-full class="navbar-item" />
@@ -12,7 +11,7 @@
 </template>
 
 <script setup>
-// import Hamburger from './components/hamburger.vue'
+import Hamburger from './components/hamburger.vue'
 //   import Breadcrumb from './components/breadcrumb.vue'
 // import Avatar from './components/avatar.vue'
 // import ScreenFull from './components/screenFull.vue'

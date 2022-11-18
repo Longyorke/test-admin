@@ -1,7 +1,7 @@
 <template>
     <!-- 菜单组件 -->
     <el-menu active-text-color="#ffd04b" :background-color="menuBg" class="el-menu-vertical-demo"
-        :default-active="defaultActive" text-color="#fff" router unique-opened>
+        :default-active="defaultActive" text-color="#fff" router unique-opened :collapse="!$store.getters.siderType">
         <!-- 一级菜单标签 -->
         <el-sub-menu :index="item.id + ''" v-for="( item, index ) in  menuList" :key="item.id">
             <template #title>
