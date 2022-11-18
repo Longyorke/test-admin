@@ -14,10 +14,10 @@ service.interceptors.request.use(
     (config) => {
         console.log('【进入请求拦截器】')
         // 判断是否超过有效时间
-        if (getTokenTime()) { // 判断能拿到对应时间token才进行设置
+        if (getTokenTime()) { // 判断能从localStorage拿到对应时间token才进行设置
             if (diffTokenTime()) { // 超过时间返回真
                 console.log('【超过登录有效期】')
-                store.dispatch('app/logout')
+                store.dispatch('app/logout') // vuex中相关退出操作
                 return Promise.reject(new Error('token 失效了')) // 直接退出则不会在请求报头添加token需要重新登录
             }
             // 没有超过有效期

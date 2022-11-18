@@ -38,10 +38,13 @@ module.exports = defineConfig({
     loaderOptions: {
       sass: {
         additionalData: // 8版本用prependData: 12版本用additionalData
+          // `
+          //   @import "@/styles/variables.scss";  // scss文件地址
+          //   @import "@/styles/mixin.scss";     // scss文件地址
+          // `
           `
-          @import "@/styles/variables.scss";  // scss文件地址
-          @import "@/styles/mixin.scss";     // scss文件地址
-        `
+        @import "@/styles/mixin.scss";     // scss文件地址
+      `
       }
     }
   }

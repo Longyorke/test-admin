@@ -2,12 +2,17 @@
     <div class="common-layout">
         <!-- 容器 -->
         <el-container class="app-wrapper">
-            <el-aside width="200px" class="sidebar-container">
+            <!-- 侧栏 -->
+            <el-aside width="sideBarWidth" class="sidebar-container">
+                <!-- 菜单 -->
                 <Menu></Menu>
-            </el-aside> <!-- 侧栏 -->
+            </el-aside>
             <!-- 容器 -->
             <el-container class="container">
-                <el-header>Header</el-header> <!-- 头部 -->
+                <!-- 头部 -->
+                <el-header>
+                    <Headers></Headers>
+                </el-header>
                 <el-main>
                     <router-view></router-view>
                 </el-main> <!-- 主要内容 -->
@@ -17,11 +22,19 @@
 </template>
 
 <script setup>
-import Menu from './Menu'
+import Menu from './menu'
+import Headers from './headers'
+
+// import { ref } from 'vue'
+// scss中的变量已经在vue.config.js中导入
+// import variables from '@/styles/variables.scss'
+// const sideBarWidth = ref(variables.sideBarWidth)
 
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables.module.scss';
+
 .app-container {
     position: relative;
     width: 100%;

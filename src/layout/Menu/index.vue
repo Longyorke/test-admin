@@ -1,6 +1,6 @@
 <template>
     <!-- 菜单组件 -->
-    <el-menu active-text-color="#ffd04b" background-color="variables.menuBg" class="el-menu-vertical-demo"
+    <el-menu active-text-color="#ffd04b" :background-color="menuBg" class="el-menu-vertical-demo"
         :default-active="defaultActive" text-color="#fff" router unique-opened>
         <!-- 一级菜单标签 -->
         <el-sub-menu :index="item.id + ''" v-for="( item, index ) in  menuList" :key="item.id">
@@ -28,6 +28,9 @@
 <script  setup>
 import { ref } from 'vue'
 import { getMenuList } from '@/api/menu'
+import variables from '@/styles/variables.module.scss'
+
+const menuBg = ref(variables.menuBg)
 
 // 图表
 const iconListFisrtOrder = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart']) // 一级图标
