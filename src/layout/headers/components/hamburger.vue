@@ -1,7 +1,7 @@
 <template>
     <div class="hamburger-container" @click="toggleClick" id="hamburger">
         <el-icon>
-            <component :is="icon"></component> <!-- 对应上才展示 -->
+            <component :is="icon" style="vertical-align: middle"></component> <!-- 对应上才展示 -->
         </el-icon>
     </div>
 </template>

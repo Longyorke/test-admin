@@ -49,6 +49,7 @@ const menuList = ref([])
 // 定义初始化菜单函数，异步调用菜单列表请求
 const initMenuList = async () => {
     menuList.value = await getMenuList() // 注意使用.value来操作ref中的数据
+    console.log('【菜单列表】')
     console.log(menuList.value)
 }
 

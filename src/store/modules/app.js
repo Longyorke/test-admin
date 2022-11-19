@@ -31,7 +31,7 @@ export default {
                 loginApi(userInfo)
                     .then((res) => {
                         // 登录成功
-                        console.log(res)
+                        console.log('【登录成功】', res)
                         commit('setToken', res.token) // 存储登录token
                         setTokenTime() // 存储登录时间
                         router.replace('/') // 登录成功后应返回到首页
