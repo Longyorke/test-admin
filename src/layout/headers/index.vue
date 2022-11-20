@@ -2,18 +2,18 @@
     <div class="navbar">
         <Hamburger />
         <Breadcrumb />
-        <!-- <div class="navbar-right">
-            <Driver class="navbar-item" />
-            <screen-full class="navbar-item" />
-            <Avatar class="navbar-item" />
-        </div> -->
+        <div class="navbar-right">
+            <!-- <Driver class="navbar-item" />
+            <screen-full class="navbar-item" /> -->
+            <Avatar class="navbar-item" /> <!-- 用户头像组件 -->
+        </div>
     </div>
 </template>
 
 <script setup>
 import Hamburger from './components/hamburger.vue'
 import Breadcrumb from './components/breadcrumb.vue'
-// import Avatar from './components/avatar.vue'
+import Avatar from './components/avatar.vue'
 // import ScreenFull from './components/screenFull.vue'
 // import Driver from './components/driver'
 </script>
