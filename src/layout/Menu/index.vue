@@ -18,7 +18,7 @@
                     <el-icon>
                         <component :is="iconListSecondOrder"></component> <!-- 对应上才展示 -->
                     </el-icon>
-                    <span>{{ itemChild.authName }}</span>
+                    <span>{{ $t(`menus.${itemChild.path}`) }}</span>
                 </template>
             </el-menu-item>
         </el-sub-menu>

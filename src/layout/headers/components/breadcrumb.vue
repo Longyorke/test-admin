@@ -5,11 +5,11 @@
         <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
             <!-- 如果是最后一项：不可点击-->
             <span class="no-redirect" v-if="index === breadcrumbList.length - 1">
-                {{ item.name }}
+                {{ $t(`menus.${item.name}`) }}
             </span>
             <!-- 若不是最后一项：可点击跳转 handleRedirect(【传入对应路由】) -->
             <span class="redirect" v-else @click="handleRedirect(item.path)">
-                {{ item.name }}
+                {{ $t(`menus.${item.name}`) }}
             </span>
         </el-breadcrumb-item>
     </el-breadcrumb>

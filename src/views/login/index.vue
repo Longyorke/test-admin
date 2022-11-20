@@ -4,7 +4,7 @@
         <!-- 动态绑定属性model的内容为setup中设置的form变量 -->
         <el-form ref="ruleFormRef" :model="form" class="login-form" :rules="rules">
             <div class="title-container">
-                <h3 class="title">用户登录</h3>
+                <h3 class="title">{{ $t('login.title') }}</h3>
             </div>
             <!-- 表单中每个表单输入项目 -->
             <el-form-item prop='username'>
@@ -22,7 +22,9 @@
                 </el-icon>
                 <el-input v-model="form.password" type='password' show-password=true />
             </el-form-item>
-            <el-button type="primary" class="login-button" @click="submitForm()">登录</el-button>
+            <el-button type="primary" class="login-button" @click="submitForm()">
+                {{ $t('login.btnTitle') }}
+            </el-button>
         </el-form>
     </div>
 </template>
