@@ -6,16 +6,23 @@ export default {
     namespaced: true, // 使用命名空间，app/token 防止重名报错
     state: {
         token: localStorage.getItem('token') || '', // 先获取指定key本地存储的值 ，取不到才设置为空字符串
-        siderType: true
+        siderType: true,
+        language: localStorage.getItem('language') || 'zh' // 先获取指定key本地存储的值 ，取不到才设置为中文
     },
     // 同步修改
     mutations: {
+        // 设置token状态
         setToken(state, token) {
             state.token = token // 将传入的token参数存入vuex状态中的token
             localStorage.setItem('token', token) // 本地存储传入的token参数
         },
+        // 改变侧栏菜单状态
         changeSiderType(state) {
             state.siderType = !state.siderType // 将展开状态取反
+        },
+        // 改变语言状态
+        changeLanguage(state, language) {
+            state.language = language
         }
     },
     // 异步操作

@@ -5,6 +5,7 @@
         <div class="navbar-right">
             <!-- <Driver class="navbar-item" />
             <screen-full class="navbar-item" /> -->
+            <Language class="navbar-item" />
             <Avatar class="navbar-item" /> <!-- 用户头像组件 -->
         </div>
     </div>
@@ -14,6 +15,7 @@
 import Hamburger from './components/hamburger.vue'
 import Breadcrumb from './components/breadcrumb.vue'
 import Avatar from './components/avatar.vue'
+import Language from './components/language.vue'
 // import ScreenFull from './components/screenFull.vue'
 // import Driver from './components/driver'
 </script>
