@@ -22,9 +22,15 @@
     <el-table :data="tableData" style="width: 100%">、
       <el-table-column :prop="item.prop" :label="$t(`table.${item.label}`)" v-for="(item, index) in options"
         :key="index" :width="item.width">
-        <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
+        <!-- 创建时间转换时间戳 -->
+        <template v-slot="{ row }" v-if="item.prop === 'create_time'">
+          {{ $filters.filterTimes(row.create_time) }}
+        </template>
+        <!-- 用户状态开关 -->
+        <template v-slot="{ row }" v-else-if="item.prop === 'mg_state'">
           <el-switch v-model="row.mg_state" />
         </template>
+        <!-- 操作按钮 -->
         <template #default v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" />
           <el-button type="warning" size="small" :icon="Setting" />
