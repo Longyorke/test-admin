@@ -6394,6 +6394,11 @@
     "ajv-formats" "^2.1.1"
     "ajv-keywords" "^5.0.0"
 
+"screenfull@^6.0.2":
+  "integrity" "sha512-AQdy8s4WhNvUZ6P8F6PB21tSPIYKniic+Ogx0AacBMjKP1GUHN2E9URxQHtCusiwxudnCKkdy4GrHXPPJSkCCw=="
+  "resolved" "https://registry.npmmirror.com/screenfull/-/screenfull-6.0.2.tgz"
+  "version" "6.0.2"
+
 "scule@^0.3.2":
   "integrity" "sha512-zIvPdjOH8fv8CgrPT5eqtxHQXmPNnV/vHJYffZhE43KZkvULvpCTvOt1HPlFaCZx287INL9qaqrZg34e8NgI4g=="
   "resolved" "https://registry.npmmirror.com/scule/-/scule-0.3.2.tgz"
