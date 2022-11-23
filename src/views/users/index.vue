@@ -9,7 +9,7 @@
         </el-input>
       </el-col>
       <!-- 搜索按钮 -->
-      <el-button type="primary" :icon="Search">{{
+      <el-button type="primary" :icon="Search" @click="initGetUserList">{{
           $t('table.search')
       }}</el-button>
       <!-- 添加用户按钮 -->
@@ -67,5 +67,10 @@ initGetUserList()
 .header {
   /* 搜索行与表格有一定间距 */
   padding-bottom: 16px;
+  box-sizing: border-box;
 }
+
+// ::v-deep .el-input__suffix {
+//   align-items: bottom;
+// }
 </style>
