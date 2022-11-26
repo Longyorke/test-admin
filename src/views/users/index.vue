@@ -27,8 +27,8 @@
           {{ $filters.filterTimes(row.create_time) }}
         </template>
         <!-- 用户状态开关 -->
-        <template v-slot="{ row }" v-else-if="item.prop === 'mg_state'">
-          <el-switch v-model="row.mg_state" />
+        <template v-slot="{ row }" v-else-if="item.prop === 'mg_state' ">
+          <el-switch v-model="row.mg_state" @change="changeState(row)" />
         </template>
         <!-- 操作按钮 -->
         <template #default v-else-if="item.prop === 'action'">
@@ -58,9 +58,13 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue'
-import { getUsers } from '@/api/users.js'
-import { options } from './options' // 导出Table-column 属性
+import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
+import { options } from './options' // 导入Table-column 属性
+import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue' // 导入element-plus小图标
+import { ElMessage } from 'element-plus' // 导入element-plus消息提示
+// import i18n from '@/i18n' // 导入国际化方法一
+import { useI18n } from 'vue-i18n' // 导入国际化方法二
+const i18n = useI18n() // 拿到使用国际化对象
 
 const queryForm = ref({
   query: '',
@@ -95,6 +99,15 @@ const handleCurrentChange = (pageNum) => {
   initGetUsersList()
 }
 
+// 点击修改用户状态按钮事件
+const changeState = async (info) => {
+  console.log('【被修改状态的用户信息】', info)
+  await changeUserState(info.id, info.mg_state) // 调用请求用户状态接口
+  ElMessage({
+    message: i18n.t('message.updateSuccess'),
+    type: 'success'
+  })
+}
 </script>
 
 <style lang="scss" scoped>
