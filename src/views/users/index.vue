@@ -54,24 +54,39 @@
       layout="total, sizes, prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
       @current-change="handleCurrentChange" />
   </el-card>
-  <!-- 添加用户对话框 -->
-  <Dialog v-model:visible="dialogVisibleFlag"></Dialog>
+  <!-- 用户对话框组件 -->
+  <Dialog v-model:visible="dialogVisible"></Dialog>
 </template>
 
 <script setup>
+/* ================================vue内部组件===================================== */
 import { ref } from 'vue'
-import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
-import { options } from './options' // 导入Table-column 属性
+/* ================================第三方组件===================================== */
 import { Search, Edit, Setting, Delete, Plus } from '@element-plus/icons-vue' // 导入element-plus小图标
 import { ElMessage } from 'element-plus' // 导入element-plus消息提示
 import Dialog from './components/dialog.vue' // 导入对话框组件
+/* ================================自定义组件===================================== */
+import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
+import { options } from './options' // 导入Table-column 属性
+
+/* ==================================国际化 begin===================================== */
 // import i18n from '@/i18n' // 导入国际化方法一
 import { useI18n } from 'vue-i18n' // 导入国际化方法二
 const i18n = useI18n() // 拿到使用国际化对象
+/* ==================================国际化 end===================================== */
 
-// 对话框 dialogVisibleFlag变量来来控制对话框展示与隐藏 默认为false隐藏
-const dialogVisibleFlag = ref(false)
+/* ==================================对话框 begin===================================== */
+// 对话框 dialogVisible变量来来控制对话框展示与隐藏 默认为false隐藏
+const dialogVisible = ref(false)
 
+// 点击对话框显示事件
+const handleDialogValue = () => {
+  console.log('【点击对话框显示事件】')
+  dialogVisible.value = true
+}
+/* ==================================对话框 end===================================== */
+
+/* ==================================获取用户数据 begin===================================== */
 // 请求用户表单
 const queryForm = ref({
   query: '',
@@ -92,7 +107,9 @@ const initGetUsersList = async () => {
   tableData.value = res.users // 将用户数据取出放入表格数据缓存
 }
 initGetUsersList()
+/* ==================================获取用户数据 end===================================== */
 
+/* ==================================分页器 begin===================================== */
 // 每页显示条目个数改变事件
 const handleSizeChange = (pageSize) => {
   queryForm.value.pagenum = 1 // 将当前页数重新设置为1
@@ -105,7 +122,9 @@ const handleCurrentChange = (pageNum) => {
   queryForm.value.pagenum = pageNum // 将当前页数重新设置为传入参数对应的页数
   initGetUsersList()
 }
+/* ==================================分页器 end===================================== */
 
+/* ==================================修改用户状态 begin===================================== */
 // 点击修改用户状态按钮事件
 const changeState = async (info) => {
   console.log('【被修改状态的用户信息】', info)
@@ -115,12 +134,8 @@ const changeState = async (info) => {
     type: 'success'
   })
 }
+/* ==================================修改用户状态 end===================================== */
 
-// 点击对话框显示事件
-const handleDialogValue = () => {
-  console.log('【点击对话框显示事件】')
-  dialogVisibleFlag.value = true
-}
 </script>
 
 <style lang="scss" scoped>

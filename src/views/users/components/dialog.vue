@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 通过dialogVisible来控制对话框展示与隐藏 -->
-        <el-dialog :model-value="dialogVisible" title="Tips" width="30%" :before-close="handleClose">
+        <el-dialog v-model="dialogVisible" title="Tips" width="30%" :before-close="handleClose">
             <span>This is a message</span>
             <template #footer>
                 <span class="dialog-footer">
@@ -16,9 +16,7 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps } from 'vue'
-// 定义控制弹窗显隐的变量
-const dialogVisible = ref(false)
+import { defineProps, defineEmits, computed } from 'vue'
 
 // 接受父组件传过来的值
 const props = defineProps({
@@ -27,10 +25,16 @@ const props = defineProps({
         default: false
     }
 })
-
-watch(() => props.visible, (val) => {
-    console.log('【dialog子组件监听到visible变化】visible：', val)
-    dialogVisible.value = val
+// 触发父组件传过来的值
+const emit = defineEmits(['update:visible'])
+// 计算属性：控制弹窗显隐 get方法返回v-model参数对应prop，set需触发对应事件
+const dialogVisible = computed({
+    get() {
+        return props.visible
+    },
+    set(visible) {
+        emit('update:visible', visible)
+    }
 })
 
 </script>
