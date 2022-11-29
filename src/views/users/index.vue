@@ -13,7 +13,7 @@
           $t('table.search')
       }}</el-button>
       <!-- 添加用户按钮 -->
-      <el-button type="primary">
+      <el-button type="primary" :icon="Plus" @click="handleDialogValue">
         {{ $t('table.adduser') }}
       </el-button>
     </el-row>
@@ -54,24 +54,31 @@
       layout="total, sizes, prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
       @current-change="handleCurrentChange" />
   </el-card>
+  <!-- 添加用户对话框 -->
+  <Dialog v-model:visible="dialogVisibleFlag"></Dialog>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
 import { options } from './options' // 导入Table-column 属性
-import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue' // 导入element-plus小图标
+import { Search, Edit, Setting, Delete, Plus } from '@element-plus/icons-vue' // 导入element-plus小图标
 import { ElMessage } from 'element-plus' // 导入element-plus消息提示
+import Dialog from './components/dialog.vue' // 导入对话框组件
 // import i18n from '@/i18n' // 导入国际化方法一
 import { useI18n } from 'vue-i18n' // 导入国际化方法二
 const i18n = useI18n() // 拿到使用国际化对象
 
+// 对话框 dialogVisibleFlag变量来来控制对话框展示与隐藏 默认为false隐藏
+const dialogVisibleFlag = ref(false)
+
+// 请求用户表单
 const queryForm = ref({
   query: '',
   pagenum: 1, // 当前页数
   pagesize: 2 // 每页显示条目个数
 })
-// 表格数据缓存
+// 用户表格数据缓存
 const tableData = ref([])
 
 // 单页总条目数
@@ -107,6 +114,12 @@ const changeState = async (info) => {
     message: i18n.t('message.updateSuccess'),
     type: 'success'
   })
+}
+
+// 点击对话框显示事件
+const handleDialogValue = () => {
+  console.log('【点击对话框显示事件】')
+  dialogVisibleFlag.value = true
 }
 </script>
 
