@@ -18,3 +18,12 @@ export const changeUserState = (uid, type) => {
         method: 'PUT' // 方法
     })
 }
+
+// 添加用户接口
+export const addUser = (data) => {
+    return request({
+        url: '/users', // 将输入参数格式化到路由地址中
+        method: 'POST', // 方法
+        data // 添加的新用户数据
+    })
+}

@@ -55,7 +55,8 @@
       @current-change="handleCurrentChange" />
   </el-card>
   <!-- 用户对话框组件 -->
-  <Dialog v-model:visible="dialogVisible"></Dialog>
+  <Dialog v-model:visible="dialogVisible" :dialogTitle="dialogTitle" v-if="dialogVisible"
+    @to-get-users-list="initGetUsersList"></Dialog>
 </template>
 
 <script setup>
@@ -79,9 +80,13 @@ const i18n = useI18n() // 拿到使用国际化对象
 // 对话框 dialogVisible变量来来控制对话框展示与隐藏 默认为false隐藏
 const dialogVisible = ref(false)
 
+// 对话框标题
+const dialogTitle = ref('')
+
 // 点击对话框显示事件
 const handleDialogValue = () => {
   console.log('【点击对话框显示事件】')
+  dialogTitle.value = '添加用户'
   dialogVisible.value = true
 }
 /* ==================================对话框 end===================================== */
