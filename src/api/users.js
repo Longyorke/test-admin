@@ -36,3 +36,11 @@ export const editUser = (data) => {
         data // 编辑更新的用户数据
     })
 }
+
+// 刪除用户接口
+export const delUser = (id) => {
+    return request({
+        url: `/users/${id}`, // 将输入参数格式化到路由地址中
+        method: 'DELETE' // 方法
+    })
+}

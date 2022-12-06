@@ -34,7 +34,7 @@
         <template #default="{row}" v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
           <el-button type="warning" size="small" :icon="Setting" />
-          <el-button type="danger" size="small" :icon="Delete" />
+          <el-button type="danger" size="small" :icon="Delete" @click="handleDelUser(row)" />
         </template>
       </el-table-column>
     </el-table>
@@ -64,10 +64,10 @@
 import { ref } from 'vue'
 /* ================================第三方组件===================================== */
 import { Search, Edit, Setting, Delete, Plus } from '@element-plus/icons-vue' // 导入element-plus小图标
-import { ElMessage } from 'element-plus' // 导入element-plus消息提示
+import { ElMessage, ElMessageBox } from 'element-plus' // 导入element-plus消息提示、消息弹框
 import Dialog from './components/dialog.vue' // 导入对话框组件
 /* ================================自定义组件===================================== */
-import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
+import { getUsers, changeUserState, delUser } from '@/api/users.js'// 导入axios接口
 import { options } from './options' // 导入Table-column 属性
 import { isNull } from '@/utils/filters' // 判断数据是否为空
 
@@ -103,6 +103,32 @@ const handleDialogValue = (row) => {
   dialogVisible.value = true // 显示
 }
 /* ==================================对话框 end===================================== */
+
+/* ==================================删除按钮 begin===================================== */
+const handleDelUser = (row) => {
+  ElMessageBox.confirm(
+    i18n.t('dialog.deleteTitle'),
+    'Warning',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning'
+    }
+  ).then(async () => {
+    await delUser(row.id) // axios删除用户接口
+    ElMessage({ // 消息提示成功删除
+      type: 'success',
+      message: 'Delete completed'
+    })
+    initGetUsersList() // 重新获取用户列表
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: 'Delete canceled'
+    })
+  })
+}
+/* ==================================删除按钮 end===================================== */
 
 /* ==================================获取用户数据 begin===================================== */
 // 请求用户表单
@@ -166,4 +192,12 @@ const changeState = async (info) => {
 // ::v-deep .el-input__suffix {
 //   align-items: bottom;
 // }
+
+// 分页器置于右侧
+:deep(.el-pagination) {
+  padding-top: 16px;
+  // box-sizing: border-box;
+  // text-align: right;
+  justify-content: flex-end;
+}
 </style>
