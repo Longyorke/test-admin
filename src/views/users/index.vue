@@ -3,7 +3,7 @@
   <el-card>
     <!-- 行容器中标签之间间隔占整行比例为20 -->
     <el-row :gutter="20" class="header">
-      <!-- 输入框占整行的宽度比例为7 -->
+      <!-- 用于搜索的输入框占整行的宽度比例为7 -->
       <el-col :span="7">
         <el-input :placeholder="$t('table.placeholder')" v-model="queryForm.query" clearable="true">
         </el-input>
@@ -13,7 +13,7 @@
           $t('table.search')
       }}</el-button>
       <!-- 添加用户按钮 -->
-      <el-button type="primary" :icon="Plus" @click="handleDialogValue">
+      <el-button type="primary" :icon="Plus" @click="handleDialogValue()">
         {{ $t('table.adduser') }}
       </el-button>
     </el-row>
@@ -31,8 +31,8 @@
           <el-switch v-model="row.mg_state" @change="changeState(row)" />
         </template>
         <!-- 操作按钮 -->
-        <template #default v-else-if="item.prop === 'action'">
-          <el-button type="primary" size="small" :icon="Edit" />
+        <template #default="{row}" v-else-if="item.prop === 'action'">
+          <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
           <el-button type="warning" size="small" :icon="Setting" />
           <el-button type="danger" size="small" :icon="Delete" />
         </template>
@@ -56,7 +56,7 @@
   </el-card>
   <!-- 用户对话框组件 -->
   <Dialog v-model:visible="dialogVisible" :dialogTitle="dialogTitle" v-if="dialogVisible"
-    @to-get-users-list="initGetUsersList"></Dialog>
+    @to-get-users-list="initGetUsersList" :dialog-title-row-data="dialogTitleRowData"></Dialog>
 </template>
 
 <script setup>
@@ -69,6 +69,7 @@ import Dialog from './components/dialog.vue' // 导入对话框组件
 /* ================================自定义组件===================================== */
 import { getUsers, changeUserState } from '@/api/users.js'// 导入axios接口
 import { options } from './options' // 导入Table-column 属性
+import { isNull } from '@/utils/filters' // 判断数据是否为空
 
 /* ==================================国际化 begin===================================== */
 // import i18n from '@/i18n' // 导入国际化方法一
@@ -83,11 +84,23 @@ const dialogVisible = ref(false)
 // 对话框标题
 const dialogTitle = ref('')
 
+// 用户表格行数据缓存（用于传递给子组件）
+const dialogTitleRowData = ref({})
+
 // 点击对话框显示事件
-const handleDialogValue = () => {
+const handleDialogValue = (row) => {
   console.log('【点击对话框显示事件】')
-  dialogTitle.value = '添加用户'
-  dialogVisible.value = true
+  if (isNull(row)) {
+    // 传入参数为空
+    dialogTitle.value = '添加用户'
+    dialogTitleRowData.value = {}
+  } else {
+    // 传入参数携带数据
+    dialogTitle.value = '编辑用户'
+    dialogTitleRowData.value = JSON.parse(JSON.stringify(row))
+  }
+
+  dialogVisible.value = true // 显示
 }
 /* ==================================对话框 end===================================== */
 

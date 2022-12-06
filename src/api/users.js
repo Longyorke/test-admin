@@ -22,8 +22,17 @@ export const changeUserState = (uid, type) => {
 // 添加用户接口
 export const addUser = (data) => {
     return request({
-        url: '/users', // 将输入参数格式化到路由地址中
+        url: '/users',
         method: 'POST', // 方法
         data // 添加的新用户数据
+    })
+}
+
+// 编辑用户接口
+export const editUser = (data) => {
+    return request({
+        url: `/users/${data.id}`, // 将输入参数格式化到路由地址中
+        method: 'PUT', // 方法
+        data // 编辑更新的用户数据
     })
 }

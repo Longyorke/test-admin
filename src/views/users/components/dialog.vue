@@ -7,7 +7,7 @@
                 <el-form-item prop="username" label="用户名">
                     <el-input v-model="dynamicValidateForm.username" />
                 </el-form-item>
-                <el-form-item prop="password" label="密码">
+                <el-form-item prop="password" label="密码" v-if="dialogTitle === '添加用户'">
                     <el-input v-model="dynamicValidateForm.password" type="password" />
                 </el-form-item>
                 <el-form-item prop="email" label="邮箱">
@@ -28,8 +28,8 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, ref } from 'vue'
-import { addUser } from '@/api/users'
+import { defineProps, defineEmits, computed, ref, watch } from 'vue'
+import { addUser, editUser } from '@/api/users'
 import i18n from '@/i18n' // 自定义的国际化对象
 import { ElMessage } from 'element-plus'
 
@@ -76,12 +76,26 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    // 对话框标题
     dialogTitle: {
         type: String,
         default: '',
         required: true
+    },
+    // 对话框缓存用户表格行数据
+    dialogTitleRowData: {
+        type: Object,
+        default: () => { }
     }
 
+})
+// 监听 用户表格行数据
+watch(() => { return props.dialogTitleRowData }, () => {
+    console.log('【对话框组件监听】', props.dialogTitleRowData)
+    dynamicValidateForm.value = props.dialogTitleRowData // 对应的用户表格行数据放到表单中作为默认值
+}, {
+    deep: true,
+    immediate: true
 })
 
 // 发送触发父组件事件
@@ -104,11 +118,15 @@ const handleClose = () => {
 
 // 确认事件
 const handleConfirm = () => {
+    // 统一校验
     formRef.value.validate(async (valid, fields) => {
         if (valid) {
             // 验证成功
-            await addUser(dynamicValidateForm.value) // axios添加新的用户 注意参数要为ref的value解引用
-            emits('toGetUsersList')
+            // 根据对话框标题确定调用axios哪个接口
+            props.dialogTitle === '添加用户'
+                ? await addUser(dynamicValidateForm.value) // axios添加新的用户 注意参数要为ref的value解引用
+                : await editUser(dynamicValidateForm.value) // axios编辑更新用户
+            emits('toGetUsersList') // 发送给父组件重新获取一次用户列表
             ElMessage({
                 message: i18n.global.t('message.updateSuccess'),
                 type: 'success'
